@@ -11,4 +11,4 @@ new Client(api_key)
 ### Playlist
 
 - `playlistItems`
-- `getLastVideosOfPlaylist`
+- `getLatestVideosOfPlaylist`
