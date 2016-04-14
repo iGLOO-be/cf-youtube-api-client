@@ -52,7 +52,43 @@ component {
   }
 
 
+  // --- Videos
+
+  public array function videosDetails(required id, any part) {
+    if (isArray(id)) {
+      id = arrayToList(id, ',');
+    }
+
+    var param = { 'id' = id };
+
+    if (isNull(part)) {
+      param['part'] = 'id,player';
+    } else {
+      if (isArray(part)) {
+        part = arrayToList(part, ',');
+      }
+      param['part'] = part;
+    }
+
+    var res = callAPI('videos', param);
+    var videos = [];
+    if (isStruct(res) && structKeyExists(res, 'items')) {
+      for (var item in res.items) {
+        videos.add(item);
+      }
+    } else {
+      throwResult('Invalid result', res);
+    }
+
+    return videos;
+  }
+
+
   // --- privates
+
+  private void function throwResult(message, res) {
+    throw(message = message, detail = !isNull(res) ? serializeJSON(res) : 'Result is null');
+  }
 
   private any function callAPI(required string methodName, required struct args) {
     args['key'] = variables.api_key;
