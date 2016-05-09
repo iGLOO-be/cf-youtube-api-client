@@ -83,6 +83,16 @@ component {
     return videos;
   }
 
+  public string function getVideoIdFromUrl(required string str) {
+    var rgx = '(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})';
+    var m = match(rgx, str);
+
+    if (arrayLen(m)) {
+      return m[1];
+    }
+
+    return '';
+  }
 
   // --- privates
 
@@ -122,6 +132,34 @@ component {
     }
 
     return content;
+  }
+
+  private array function match(required string r, required string str, flags) {
+    var Pattern = createObject('java', 'java.util.regex.Pattern');
+    if(!isNull(flags)) {
+      if(isSimpleValue(flags)) {
+        flags = listToArray(flags);
+      }
+      var flagInt = 0;
+      var flagName = '';
+      for (flagName in flags)
+        flagInt += Pattern[flagName];
+      var p = Pattern.compile(r, javacast("int", flagInt));
+    } else {
+      var p = Pattern.compile(r);
+    }
+    var m = p.matcher(str);
+    var i = 1;
+    var res = [];
+
+    if(m.find()) {
+      var i = 1;
+      while(i <= m.groupCount()) {
+        res.add(m.group(i));
+        i++;
+      }
+    }
+    return res;
   }
 
 }
