@@ -12,3 +12,4 @@ new Client(api_key)
 
 - `playlistItems`
 - `getLatestVideosOfPlaylist`
+- `getRandomVideoOfPlaylist`

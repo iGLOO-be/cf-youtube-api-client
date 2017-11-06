@@ -51,6 +51,15 @@ component {
     return videos;
   }
 
+  public any function getRandomVideoOfPlaylist(required string playlistId, numeric max) {
+    var videos = getLatestVideosOfPlaylist(argumentCollection = arguments);
+    if (!arrayLen(videos)) {
+      return;
+    }
+    var index = RandRange(1, arrayLen(videos));
+    return videos[index];
+  }
+
 
   // --- Videos
 
