@@ -103,6 +103,25 @@ component {
     return '';
   }
 
+  public string function getThumbnailFromUrl(required string str, string quality = 'default') {
+    var videoId = this.getVideoIdFromUrl(str);
+    return this.getThumbnail(videoId, quality);
+  }
+
+  public string function getThumbnail(required string videoId, string quality = 'default') {
+    var existingQuality = [
+      'default',
+      'hqdefault',
+      'mqdefault',
+      'sddefault',
+      'maxresdefault'
+    ];
+    if (!arrayFindNoCase(existingQuality, quality)) {
+      quality = 'default';
+    }
+    return 'http://img.youtube.com/vi/#videoId#/#quality#.jpg';
+  }
+
   // --- privates
 
   private void function throwResult(message, res) {
