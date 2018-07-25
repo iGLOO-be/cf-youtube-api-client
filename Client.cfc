@@ -119,7 +119,7 @@ component {
     if (!arrayFindNoCase(existingQuality, quality)) {
       quality = 'default';
     }
-    return 'http://img.youtube.com/vi/#videoId#/#quality#.jpg';
+    return 'https://img.youtube.com/vi/#videoId#/#quality#.jpg';
   }
 
   // --- privates
